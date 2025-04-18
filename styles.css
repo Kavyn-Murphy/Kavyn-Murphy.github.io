@@ -147,6 +147,9 @@ body {
     box-shadow: 0 0 30px rgba(100, 0, 255, 1);
     position: relative;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .photo-frame img {
