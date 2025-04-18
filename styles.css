@@ -138,9 +138,10 @@ body {
 }
 
 .photo-frame {
-    width: 200px;
+    width: 100%;
+    max-width: 300px;
     height: 200px;
-    border-radius: 50%;
+    border-radius: 10px;
     padding: 8px;
     background: linear-gradient(45deg, var(--accent-color), var(--hover-color));
     box-shadow: 0 0 20px rgba(0, 168, 255, 0.3);
