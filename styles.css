@@ -140,7 +140,7 @@ body {
 .photo-frame {
     width: 100%;
     max-width: 300px; /* Adjust as needed */
-    height: 300px; /* Set a fixed height to maintain the circle */
+    height: 200px; /* Set a fixed height to maintain the circle */
     border-radius: 50%; /* Keep it circular */
     padding: 8px; /* Padding around the image */
     background: linear-gradient(45deg, var(--accent-color), var(--hover-color));
