@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Kavyn's Lab</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌓</button>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="index.html" class="logo">Kavyn's Lab</a>
+            <ul class="nav-links">
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="credentials.html">Credentials</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div class="hamburger">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <h1 id="typing-text">Blog Posts</h1>
+        <div class="typing-cursor"></div>
+        
+        <section class="blog-grid">
+            <article class="blog-card">
+                <div class="blog-image">
+                    <div class="blog-placeholder"></div>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">April 17, 2025</span>
+                        <span class="blog-category">Tech</span>
+                    </div>
+                    <h2>The Future of AI Development</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+                    <a href="#" class="blog-link">Read More</a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <div class="blog-placeholder"></div>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">April 15, 2025</span>
+                        <span class="blog-category">Programming</span>
+                    </div>
+                    <h2>Modern Web Development Practices</h2>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+                    <a href="#" class="blog-link">Read More</a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <div class="blog-placeholder"></div>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">April 10, 2025</span>
+                        <span class="blog-category">Machine Learning</span>
+                    </div>
+                    <h2>Deep Learning Breakthroughs</h2>
+                    <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.</p>
+                    <a href="#" class="blog-link">Read More</a>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.body.setAttribute('data-theme', savedTheme);
+            themeToggle.textContent = savedTheme === 'dark' ? '🌓' : '🌞';
+        } else {
+            const theme = prefersDarkScheme.matches ? 'dark' : 'light';
+            document.body.setAttribute('data-theme', theme);
+            themeToggle.textContent = theme === 'dark' ? '🌓' : '🌞';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '🌓' : '🌞';
+        });
+
+        // Typing effect
+        function typeText(element, text, speed = 100) {
+            element.textContent = '';
+            let i = 0;
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        const typingText = document.getElementById('typing-text');
+        const originalText = typingText.textContent;
+        typeText(typingText, originalText, 100);
+
+        // Mobile menu
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Kavyn's Lab</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌓</button>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="index.html" class="logo">Kavyn's Lab</a>
+            <ul class="nav-links">
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="credentials.html">Credentials</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div class="hamburger">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <h1 id="typing-text">My Projects</h1>
+        <div class="typing-cursor"></div>
+        
+        <section class="projects-grid">
+            <article class="project-card">
+                <h2>Security Operations Center (SOC) Implementation</h2>
+                <div class="project-image">
+                    <div class="project-placeholder"></div>
+                </div>
+                <p>Designed and implemented a comprehensive Security Operations Center, integrating various security tools and monitoring systems. Established incident response procedures and security protocols.</p>
+                <div class="project-tags">
+                    <span>SIEM</span>
+                    <span>Security Monitoring</span>
+                    <span>Incident Response</span>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <h2>Add</h2>
+                <div class="project-image">
+                    <div class="project-placeholder"></div>
+                </div>
+                <p></p>
+                <div class="project-tags">
+            <span>add</span>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <h2>Add</h2>
+                <div class="project-image">
+                    <div class="project-placeholder"></div>
+                </div>
+                <p></p>
+                <div class="project-tags">
+                   <span>add</span>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script>
+        // Theme switching
+        const themeToggle = document.getElementById('theme-toggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Check for saved theme preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.body.setAttribute('data-theme', savedTheme);
+            themeToggle.textContent = savedTheme === 'dark' ? '🌓' : '🌞';
+        } else {
+            const theme = prefersDarkScheme.matches ? 'dark' : 'light';
+            document.body.setAttribute('data-theme', theme);
+            themeToggle.textContent = theme === 'dark' ? '🌓' : '🌞';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '🌓' : '🌞';
+            
+            document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+            setTimeout(() => {
+                document.body.style.transition = '';
+            }, 300);
+        });
+
+        // Typing effect
+        function typeText(element, text, speed = 100) {
+            element.textContent = '';
+            let i = 0;
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    setTimeout(() => {
+                        element.classList.add('glitch');
+                        setTimeout(() => element.classList.remove('glitch'), 500);
+                    }, 500);
+                }
+            }
+            
+            type();
+        }
+
+        // Initialize typing effect
+        const typingText = document.getElementById('typing-text');
+        const originalText = typingText.textContent;
+        typeText(typingText, originalText, 100);
+
+        // Mobile menu functionality
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

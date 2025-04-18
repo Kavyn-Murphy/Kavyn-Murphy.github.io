@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kavyn's Lab</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌓</button>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="index.html" class="logo">Kavyn's Lab</a>
+            <ul class="nav-links">
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="credentials.html">Credentials</a></li>
+                <li><a href="about.html">About</a></li>
+
+            </ul>
+            <div class="hamburger">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <h1 id="typing-text">Welcome to My Lab</h1>
+        <div class="typing-cursor">
+        </div>
+        <section class="profile-section">
+            <div class="photo-frame">
+                <!-- Replace the src with your photo path when ready -->
+                <img src="placeholder.jpg" alt="Kavyn's Photo" id="profile-photo">
+            </div>
+        </section>
+        <section class="github-showcase">
+            <h2>My GitHub Projects</h2>
+            <div class="repo-grid" id="repo-grid">
+                <!-- Repositories will be loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Theme switching
+        const themeToggle = document.getElementById('theme-toggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Check for saved theme preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.body.setAttribute('data-theme', savedTheme);
+            themeToggle.textContent = savedTheme === 'dark' ? '🌓' : '🌞';
+        } else {
+            const theme = prefersDarkScheme.matches ? 'dark' : 'light';
+            document.body.setAttribute('data-theme', theme);
+            themeToggle.textContent = theme === 'dark' ? '🌓' : '🌞';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '🌓' : '🌞';
+            
+            // Add transition effect
+            document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+            setTimeout(() => {
+                document.body.style.transition = '';
+            }, 300);
+        });
+
+        // Typing effect
+        function typeText(element, text, speed = 100) {
+            element.textContent = '';
+            let i = 0;
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    // Add glitch effect after typing
+                    setTimeout(() => {
+                        element.classList.add('glitch');
+                        setTimeout(() => element.classList.remove('glitch'), 500);
+                    }, 500);
+                }
+            }
+            
+            type();
+        }
+
+        // Initialize typing effect
+        const typingText = document.getElementById('typing-text');
+        const originalText = typingText.textContent;
+        typeText(typingText, originalText, 100);
+
+        // Add hover glitch effect to nav links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                link.classList.add('glitch');
+            });
+            link.addEventListener('mouseleave', () => {
+                link.classList.remove('glitch');
+            });
+        });
+
+        // GitHub repos fetch
+        async function fetchGitHubRepos() {
+            try {
+                const response = await fetch('https://api.github.com/users/soloisticdig/repos');
+                const repos = await response.json();
+                
+                const repoGrid = document.getElementById('repo-grid');
+                repos.forEach(repo => {
+                    const repoCard = document.createElement('div');
+                    repoCard.className = 'repo-card';
+                    
+                    repoCard.innerHTML = `
+                        <h3>${repo.name}</h3>
+                        <p>${repo.description || 'No description available'}</p>
+                        <div class="repo-stats">
+                            <span>⭐ ${repo.stargazers_count}</span>
+                            <span>🔄 ${repo.forks_count}</span>
+                        </div>
+                        <a href="${repo.html_url}" target="_blank" class="repo-link">View Repository</a>
+                    `;
+                    
+                    repoGrid.appendChild(repoCard);
+                });
+            } catch (error) {
+                console.error('Error fetching repositories:', error);
+            }
+        }
+
+        fetchGitHubRepos();
+
+        // Mobile menu functionality
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
