@@ -574,6 +574,7 @@ body {
 
 .contact-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
     margin-top: 1rem;
 }
@@ -620,5 +621,15 @@ body {
         bottom: 20px;
         right: 20px;
         z-index: 11000;
+    }
+    
+        .contact-links {
+        padding: 0 1rem;
+    }
+
+    .contact-link {
+        width: 100%;
+        font-size: 0.9rem;
+        box-sizing: border-box;
     }
 }
