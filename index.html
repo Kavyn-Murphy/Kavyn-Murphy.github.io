@@ -116,7 +116,7 @@
         // GitHub repos fetch
         async function fetchGitHubRepos() {
             try {
-                const response = await fetch('https://api.github.com/users/soloisticdig/repos');
+                const response = await fetch('https://api.github.com/users/kavyn-murphy/repos');
                 const repos = await response.json();
                 
                 const repoGrid = document.getElementById('repo-grid');
