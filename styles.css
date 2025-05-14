@@ -615,4 +615,10 @@ body {
     .hamburger {
         display: block;
     }
+
+    .theme-toggle {
+        bottom: 20px;
+        right: 20px;
+        z-index: 11000;
+    }
 }
