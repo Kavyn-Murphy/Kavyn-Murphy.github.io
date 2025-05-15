@@ -349,7 +349,9 @@ body {
     margin-bottom: 1rem;
     border-radius: 8px;
     overflow: hidden;
-    object-fit: cover;
+    object-fit: contain;
+    background-color: #000;
+    display: block;
 }
 
 .project-placeholder {
